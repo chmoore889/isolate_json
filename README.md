@@ -1,6 +1,8 @@
 ## Introduction
 This is a library for using a long-lived isolate to encode and decode JSONs.
 
+When in a VM it uses isolates. This package is able to support web by falling back to encoding/decoding without isolates on web. This is so that an application using this package does not have to do that check itself.
+
 ## Usage
 
 A simple usage example:

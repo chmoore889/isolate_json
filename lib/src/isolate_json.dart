@@ -4,39 +4,42 @@ import 'dart:isolate';
 class JsonIsolate {
   static final JsonIsolate _singleton = JsonIsolate._internal();
 
-  SendPort sendPort;
-  Isolate isolate;
+  SendPort _sendPort;
+  Isolate _isolate;
 
   JsonIsolate._internal();
 
+  /// Singleton for using JSONs in isolates.
   factory JsonIsolate() {
     return _singleton;
   }
 
+  /// Decodes a JSON with an isolate.
   Future<dynamic> decodeJson(String json) async {
-    if (isolate == null) {
+    if (_isolate == null) {
       await _makeIsolate();
     }
 
-    return _sendReceive(sendPort, json, _JsonAction.decode);
+    return _sendReceive(_sendPort, json, _JsonAction.decode);
   }
 
+  /// Encodes a JSON with an isolate.
   Future<dynamic> encodeJson(dynamic toEncode) async {
-    if (isolate == null) {
+    if (_isolate == null) {
       await _makeIsolate();
     }
 
-    return _sendReceive(sendPort, toEncode, _JsonAction.encode);
+    return _sendReceive(_sendPort, toEncode, _JsonAction.encode);
   }
 
   Future<void> _makeIsolate() async {
     final receivePort = ReceivePort();
-    isolate = await Isolate.spawn(
+    _isolate = await Isolate.spawn(
       _isolateDecode,
       receivePort.sendPort,
       debugName: 'json_isolate',
     );
-    sendPort = await receivePort.first;
+    _sendPort = await receivePort.first;
     receivePort.close();
   }
 
