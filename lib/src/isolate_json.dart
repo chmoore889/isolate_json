@@ -14,7 +14,7 @@ class JsonIsolate {
     return _singleton;
   }
 
-  /// Decodes a JSON with an isolate.
+  /// Decodes a JSON.
   Future<dynamic> decodeJson(String json) async {
     if (_isolate == null) {
       await _makeIsolate();
@@ -23,7 +23,7 @@ class JsonIsolate {
     return _sendReceive(_sendPort, json, _JsonAction.decode);
   }
 
-  /// Encodes a JSON with an isolate.
+  /// Encodes a JSON.
   Future<dynamic> encodeJson(dynamic toEncode) async {
     if (_isolate == null) {
       await _makeIsolate();

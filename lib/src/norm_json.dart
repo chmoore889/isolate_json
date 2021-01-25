@@ -10,16 +10,16 @@ class JsonIsolate {
     return _singleton;
   }
 
-  /// Decodes a JSON without an isolate.
+  /// Decodes a JSON.
   ///
-  /// Intended only when using the package on web.
+  /// Decodes without an isolate only when using the package on web.
   Future<dynamic> decodeJson(String json) async {
     return jsonDecode(json);
   }
 
-  /// Decodes a JSON without an isolate.
+  /// Encodes a JSON.
   ///
-  /// Intended only when using the package on web.
+  /// Encodes without an isolate only when using the package on web.
   Future<dynamic> encodeJson(dynamic toEncode) async {
     return jsonEncode(toEncode);
   }
