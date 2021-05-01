@@ -1,7 +1,7 @@
 import 'package:isolate_json/isolate_json.dart';
 
 Future<void> main() async {
-  String json;
+  final json = '{"name":"John", "age":30, "car":null}';
   final output1 = await JsonIsolate().decodeJson(json);
 
   final output2 = await JsonIsolate().encodeJson({
