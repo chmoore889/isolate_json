@@ -11,7 +11,9 @@ A simple usage example:
 import 'package:isolate_json/isolate_json.dart';
 
 Future<void> main() async {
-  String json;
+  await JsonIsolate().startIsolate();
+
+  final json = '{"name":"John", "age":30, "car":null}';
   final output1 = await JsonIsolate().decodeJson(json);
 
   final output2 = await JsonIsolate().encodeJson({
@@ -23,8 +25,9 @@ Future<void> main() async {
   print(output1);
   print(output2);
   print(output3);
-}
 
+  JsonIsolate().dispose();
+}
 ```
 
 ## Features and bugs

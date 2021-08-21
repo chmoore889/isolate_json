@@ -1,3 +1,7 @@
+## 2.1.0
+
+- Added greater control over isolate lifecycle.
+
 ## 2.0.0
 
 - Stable null safety release.

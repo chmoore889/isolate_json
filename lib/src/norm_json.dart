@@ -23,4 +23,18 @@ class JsonIsolate {
   Future<dynamic> encodeJson(dynamic toEncode) async {
     return jsonEncode(toEncode);
   }
+
+  /// Starts the isolate manually.
+  /// 
+  /// Does nothing when using the package on web.
+  Future<void> startIsolate() {
+    return Future<void>.value();
+  }
+
+  /// Destroys the current isolate.
+  /// 
+  /// Does nothing when using the package on web.
+  void dispose() {
+    
+  }
 }

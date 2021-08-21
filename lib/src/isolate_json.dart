@@ -14,7 +14,7 @@ class JsonIsolate {
     return _singleton;
   }
 
-  /// Decodes a JSON.
+  /// Decodes a JSON. Starts the isolate if it hasn't already been started.
   Future<dynamic> decodeJson(String json) async {
     if (_isolate == null || _sendPort == null) {
       await _makeIsolate();
@@ -23,13 +23,26 @@ class JsonIsolate {
     return _sendReceive(_sendPort!, json, _JsonAction.decode);
   }
 
-  /// Encodes a JSON.
+  /// Encodes a JSON. Starts the isolate if it hasn't already been started.
   Future<dynamic> encodeJson(dynamic toEncode) async {
     if (_isolate == null || _sendPort == null) {
       await _makeIsolate();
     }
 
     return _sendReceive(_sendPort!, toEncode, _JsonAction.encode);
+  }
+
+  /// Starts the isolate manually. It's not necessary to manually call this method as both the
+  /// encoding and decoding functions will do it for you if it was not already done.
+  Future<void> startIsolate() {
+    return _makeIsolate();
+  }
+
+  /// Destroys the current isolate.
+  void dispose() {
+    _isolate?.kill();
+    _isolate = null;
+    _sendPort = null;
   }
 
   Future<void> _makeIsolate() async {
