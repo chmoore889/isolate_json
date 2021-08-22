@@ -1,3 +1,7 @@
+## 2.1.0+1
+
+- Formatted for pub score.
+
 ## 2.1.0
 
 - Added greater control over isolate lifecycle.
